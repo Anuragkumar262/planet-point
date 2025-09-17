@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 // Utilities & Data
 import { hideLoadingScreen } from './utils/loading';
@@ -9,6 +9,7 @@ import { animateValue } from './utils/animate';
 
 // Page Components
 import LandingPage from './pages/LandingPage';
+import HomePage from './pages/HomePage';
 
 // Layout Components
 import Navbar from './components/layout/Navbar'; 
@@ -52,6 +53,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar ki visibility state
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -173,6 +175,28 @@ function App() {
     navigate('/student/profile');
   };
 
+  // Map sidebar selections to routes
+  const handleSectionChange = (id) => {
+    if (userType === 'student') {
+      const map = {
+        overview: '/student/dashboard',
+        challenges: '/student/challenges',
+        progress: '/student/progress',
+        leaderboard: '/student/leaderboard',
+        community: '/student/community',
+        profile: '/student/profile'
+      };
+      navigate(map[id] || '/student/dashboard');
+    } else if (userType === 'admin') {
+      const map = {
+        adminOverview: '/admin/dashboard',
+        studentReview: '/admin/student-review'
+      };
+      navigate(map[id] || '/admin/dashboard');
+    }
+    setIsSidebarOpen(false);
+  };
+
   const toggleTheme = () => {
     setIsDark(prevIsDark => !prevIsDark);
     document.body.classList.toggle('dark', !isDark);
@@ -201,14 +225,14 @@ function App() {
       <div className="dashboard-layout">
         {userType === 'student' ?
           <StudentSidebar
-            onSectionChange={navigate}
+            onSectionChange={handleSectionChange}
             user={user}
             onLogout={handleLogout}
             isOpen={isSidebarOpen}
             onClose={toggleSidebar}
           /> :
           <AdminSidebar
-            onSectionChange={navigate}
+            onSectionChange={handleSectionChange}
             user={user}
             onLogout={handleLogout}
             isOpen={isSidebarOpen}
@@ -265,13 +289,19 @@ function App() {
 
   // Render LandingPage if user is not logged in
   if (!user) {
+    if (location.pathname === '/login') {
+      return React.createElement(React.Fragment, null,
+        React.createElement(LandingPage, { onLogin: handleLogin }),
+        React.createElement(ThemeToggle, { onToggleTheme: toggleTheme, isDark: isDark })
+      );
+    }
     return React.createElement(React.Fragment, null,
-      React.createElement(LandingPage, { onLogin: handleLogin }),
+      React.createElement(HomePage, null),
       React.createElement(ThemeToggle, { onToggleTheme: toggleTheme, isDark: isDark })
     );
   }
 
-  // Render main dashboard after login
+  // Render main dashboard after login (legacy section renderer kept as fallback)
   const renderStudentSection = () => {
     if (showQuiz && currentChallenge) {
       return React.createElement(QuizInterface, {
@@ -327,47 +357,8 @@ function App() {
     }
   };
 
-  return React.createElement('div', { className: 'dashboard' },
-    React.createElement(Navbar, {
-      user,
-      onLogoClick: handleLogoClick,
-      onSearch: handleSearch,
-      onProfileClick: handleProfileClick,
-      onLogout: handleLogout,
-      onToggleTheme: toggleTheme,
-      onToggleSidebar: toggleSidebar,
-      isDark
-    }),
-    React.createElement('div', { className: 'dashboard-layout' },
-      userType === 'student' ?
-        React.createElement(StudentSidebar, {
-          currentSection,
-          onSectionChange: setCurrentSection,
-          user,
-          onLogout: handleLogout,
-          isOpen: isSidebarOpen,
-          onClose: toggleSidebar
-        }) :
-        React.createElement(AdminSidebar, {
-          currentSection,
-          onSectionChange: setCurrentSection,
-          user,
-          onLogout: handleLogout,
-          isOpen: isSidebarOpen,
-          onClose: toggleSidebar
-        }),
-      React.createElement('main', { className: 'main-content' },
-        userType === 'student' ? renderStudentSection() : renderAdminSection()
-      )
-    ),
-    React.createElement(PointsModal, {
-      show: showPointsModal,
-      points: earnedPoints,
-      message: pointsMessage,
-      onClose: () => setShowPointsModal(false)
-    }),
-    React.createElement(ThemeToggle, { onToggleTheme: toggleTheme, isDark: isDark })
-  );
+  // Router-driven dashboard UI
+  return renderDashboard();
 
 
 
