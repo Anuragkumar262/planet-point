@@ -10,6 +10,7 @@ import { animateValue } from './utils/animate';
 // Page Components
 import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
+import ContactPage from './pages/ContactPage';
 
 // Layout Components
 import Navbar from './components/layout/Navbar'; 
@@ -292,6 +293,12 @@ function App() {
     if (location.pathname === '/login') {
       return React.createElement(React.Fragment, null,
         React.createElement(LandingPage, { onLogin: handleLogin }),
+        React.createElement(ThemeToggle, { onToggleTheme: toggleTheme, isDark: isDark })
+      );
+    }
+    if (location.pathname === '/contact') {
+      return React.createElement(React.Fragment, null,
+        React.createElement(ContactPage, null),
         React.createElement(ThemeToggle, { onToggleTheme: toggleTheme, isDark: isDark })
       );
     }
