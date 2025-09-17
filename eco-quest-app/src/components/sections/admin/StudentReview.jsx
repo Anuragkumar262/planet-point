@@ -40,7 +40,7 @@ function StudentReview() {
           React.createElement('div', { className: 'submission-content' }, submission.description),
           submission.photoEvidence && React.createElement('div', { className: 'submission-evidence' },
             React.createElement('img', { 
-              src: '.../../../public/NEW SIGN 50KB.JPG', 
+              src: '/vite.svg', 
               alt: 'Photo Evidence', 
               className: 'evidence-photo' 
             })
@@ -64,7 +64,7 @@ function StudentReview() {
         React.createElement('p', null, 'No pending submissions to review.')
       )
     )
-    // ... Paste the entire StudentReview component JSX here
+
   );
 }
 

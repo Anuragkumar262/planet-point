@@ -49,7 +49,7 @@ export default function Navbar({
           <FaBars />
         </button>
         
-        <img className="logo-btn" src="./public/PlanetPoint__Logo.png" alt="PlanetPoint logo" />
+        <img className="logo-btn" src="/vite.svg" alt="PlanetPoint logo" onClick={onLogoClick} />
 
       </div>
       <div className="navbar-center">
@@ -75,7 +75,7 @@ export default function Navbar({
             aria-expanded={open}
           >
             {user?.avatar
-              ? <img className="avatar" src={studentName} alt="avatar" />
+              ? <img className="avatar" src={user?.avatar} alt="avatar" />
               : <div className="avatar-initials">{initials}</div>}
           </button>
           {open && (
