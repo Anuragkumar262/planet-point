@@ -1,29 +1,11 @@
 import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '../components/layout/Navbar';
+import { Link } from 'react-router-dom';
 import '../assets/main.css';
 
 const HomePage = () => {
-  const navigate = useNavigate();
-
-  const onLogoClick = () => navigate('/');
-  const onSearch = () => {};
-  const onProfileClick = () => navigate('/login');
-  const onLogout = () => navigate('/login');
-  const onToggleSidebar = () => {};
-
   return (
     <div className="home-container">
-      <Navbar
-        user={null}
-        onLogoClick={onLogoClick}
-        onSearch={onSearch}
-        onProfileClick={onProfileClick}
-        onLogout={onLogout}
-        isDark={false}
-        onToggleSidebar={onToggleSidebar}
-      />
 
       <main className="main-content">
         <section className="hero-section">

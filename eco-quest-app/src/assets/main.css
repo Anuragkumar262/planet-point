@@ -865,7 +865,6 @@ select.form-control {
   align-items: center;
   justify-content: center;
   padding: var(--space-32);
-  padding-top: 150px;
   opacity: 0;
   animation: fadeIn 0.8s ease-out forwards;
   position: relative;
@@ -2347,7 +2346,6 @@ select.form-control {
 .home-container {
   min-height: 100vh;
   background: var(--color-background);
-  padding-top: 120px;
 }
 
 .hero-section {
