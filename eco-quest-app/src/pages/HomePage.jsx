@@ -12,7 +12,7 @@ const Home = () => {
           <Link to="/" className="logo-link">
             {/* यहाँ आपके लोगो के लिए इमेज टैग है */}
             <img 
-              src="/PlanetPoint__Logo.png" 
+              src="/vite.svg" 
               alt="PlanetPoint Logo" 
               className="logo-img" 
             />
