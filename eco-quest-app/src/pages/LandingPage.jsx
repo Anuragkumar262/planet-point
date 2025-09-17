@@ -47,7 +47,7 @@ function LandingPage({ onLogin }) {
   'img', 
   { 
     className: 'landing-title',
-    src: './public/PlanetPoint__Logo.png', // Change the path to start with a forward slash
+    src: '/vite.svg', // Using existing public asset
      
   },
   null
@@ -128,7 +128,7 @@ function LandingPage({ onLogin }) {
     )
   );
 
-  // ... Paste the entire LandingPage component code here
+
 }
 
 export default LandingPage;
