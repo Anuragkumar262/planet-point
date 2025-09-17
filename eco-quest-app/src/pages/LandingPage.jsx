@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/layout/Navbar';
 import { showNotification } from '../utils/notifications';
 
 function LandingPage({ onLogin }) {
     let [studentForm, setStudentForm] = useState({ schoolCode: '', studentName: '' });
   const [adminForm, setAdminForm] = useState({ institution: '', adminName: '' });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleStudentLogin = () => {
     if (!studentForm.schoolCode.trim() || !studentForm.studentName.trim()) {
@@ -41,6 +44,15 @@ function LandingPage({ onLogin }) {
   };
 
   return React.createElement('div', { className: 'landing-page' },
+    React.createElement(Navbar, {
+      user: null,
+      onLogoClick: () => navigate('/'),
+      onSearch: () => {},
+      onProfileClick: () => navigate('/login'),
+      onLogout: () => navigate('/'),
+      isDark: document.body.classList.contains('dark'),
+      onToggleSidebar: () => {}
+    }),
     React.createElement('div', { className: 'landing-container' },
       React.createElement('div', { className: 'landing-header' },
    React.createElement(
