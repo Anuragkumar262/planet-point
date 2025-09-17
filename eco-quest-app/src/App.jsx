@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // Utilities & Data
 import { hideLoadingScreen } from './utils/loading';
@@ -49,6 +50,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [isDark, setIsDark] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar ki visibility state
+
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
