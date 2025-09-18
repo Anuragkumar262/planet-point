@@ -49,7 +49,7 @@ export default function Navbar({
           <FaBars />
         </button>
         
-        <img className="logo-btn" src="./public/PlanetPoint__Logo.png" alt="PlanetPoint logo" />
+        <img className="logo-btn" src="/assets/PlanetPoint__Logo-CF3Fbslm.png" alt="PlanetPoint logo" />
 
       </div>
       <div className="navbar-center">
@@ -90,3 +90,4 @@ export default function Navbar({
   );
 
 }
+
